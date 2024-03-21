@@ -35,6 +35,6 @@ There can be auto-generated presets for particular pages, when you launch it fro
 However, if you have a specific idea, you can use the parameters : select a range of time or a range of geographic space, types of questions (dates, geography, images, math, code, fill-in, multiple-choice etc.), themes, categories or pages you want, and randomization possibilities for all of this (random type of questions, random theme etc.)  
 
 ## Focus group :
-This app has multiple use case, so almost anyone could be interested in using it, including :
+This app has multiple use case, so almost anyone could be interested in using it, including :  
 Someone excited to learn about a specific subject available on Wikipedia  
 Someone or a group of friends who wants to play a knowledge game  
