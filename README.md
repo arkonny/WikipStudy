@@ -5,7 +5,11 @@ Wikipedia is the largest source of knowledge openly accessible on the internet.
 What if you could learn easily from it ?  
 That's the mission of WikipStudy !  
 
+
+[Link to the Kanban](https://tree.taiga.io/project/arkonny-wikipstudy/kanban)
+
 ![WikipStudy Logo](/wikipstudy_logo.png)  
+
 
 ## Objectives :
 - Learn anything (available on Wikipedia, of course)
