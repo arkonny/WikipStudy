@@ -6,7 +6,7 @@ What if you could learn easily from it ?
 That's the mission of WikipStudy !  
 
 
-[Link to the Kanban](https://tree.taiga.io/project/arkonny-wikipstudy/kanban)
+[Link to the BackLog](https://tree.taiga.io/project/arkonny-wikipstudy/backlog)
 
 ![WikipStudy Logo](/wikipstudy_logo.png)  
 
