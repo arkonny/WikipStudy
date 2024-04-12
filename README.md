@@ -43,6 +43,6 @@ However, if you have a specific idea, you can use the parameters : select a rang
 
 ## Focus group :
 This app has multiple use case, so almost anyone could be interested in using it, including :  
-~~Someone excited to learn about a specific subject available on Wikipedia~~  
+Someone excited to learn about a specific subject available on Wikipedia  
 Someone or a group of friends who wants to play a knowledge game  
 Focusing on the "fun" potential of the app, to emphasize on users interactions and developping a game is always more engaging than a boring app
