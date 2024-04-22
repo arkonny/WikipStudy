@@ -5,6 +5,7 @@ Wikipedia is the largest source of knowledge openly accessible on the internet.
 What if you could learn easily from it ?  
 That's the mission of WikipStudy !  
 
+(this repository is the main one for informations, but it only hosts the front-end.  [here](https://github.com/arkonny/WikipStudy-Backend) is the link to the backend)
 
 [Link to the BackLog](https://tree.taiga.io/project/arkonny-wikipstudy/backlog)
 
