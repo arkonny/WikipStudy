@@ -124,8 +124,9 @@
               <div class="card-body">
                 <h5 class="card-title">Feature 1</h5>
                 <p class="card-text">Some text</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasFeature1" aria-controls="offcanvas-1">Learn more</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="offcanvas" title="Open offcanvas"
+                  data-bs-target="#offcanvasFeature1" aria-controls="offcanvas-1">Learn
+                  more</button>
               </div>
               <div class="offcanvas offcanvas-bottom" data-bs-backdrop="true" tabindex="-1" id="offcanvasFeature1"
                 aria-labelledby="offcanvasFeature1Label">
@@ -146,10 +147,28 @@
               <div class="card-body">
                 <h5 class="card-title">Feature 2</h5>
                 <p class="card-text">Some text</p>
-                <button type="button" class="btn btn-primary">Learn more</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" title="Open modal"
+                  data-bs-target="#modalFeature2">Learn more</button>
+              </div>
+              <div class="modal fade" id="modalFeature2" tabindex="-1" aria-labelledby="modalFeature2Label"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalFeature2Label">Feature 2</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Some text</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
           </div>
           <div class="col">
             <div class="card">
