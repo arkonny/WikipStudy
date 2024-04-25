@@ -9,7 +9,7 @@ That's the mission of WikipStudy !
 
 [Link to the BackLog](https://tree.taiga.io/project/arkonny-wikipstudy/backlog)
 
-![WikipStudy Logo](/wikipstudy_logo.png)  
+![WikipStudy Logo](/src/img/wikipstudy_logo.png)  
 
 
 ## Objectives :
