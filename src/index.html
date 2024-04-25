@@ -52,8 +52,9 @@
           <div class="col-7 col-md-3 offset-md-3">
             <h1 class="fw-bold"><span class="p-1">Wikip</span>Study</h1>
             <h2 class="fw-light">Learn with Wikipedia</h2>
-            <a class="btn btn-primary" href="#login"><i class="bi bi-arrow-return-right"></i> Start
-              Learning</a>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('toFocus').focus()"><i
+                class="bi bi-arrow-return-right"></i> Start
+              Learning</button>
           </div>
           <div class="col-5 col-md-6">
             <img src="img/wikipstudy.png" height="150" width="150" alt="WikipStudy" class="img-fluid" />
@@ -67,7 +68,7 @@
         <form>
           <div class="mb-3">
             <label for="" class="form-label">Email</label>
-            <input type="email" class="form-control" name="" id="" aria-describedby=""
+            <input type="email" class="form-control" name="" id="toFocus" aria-describedby=""
               placeholder="email@example.com" />
           </div>
           <div class="mb-3">
@@ -75,7 +76,8 @@
             <input type="password" class="form-control" name="" id="" placeholder="" />
           </div>
 
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-primary" href="user-page.html">Login</a>
+          <a class="btn btn-secondary" href="register.html">Register</a>
         </form>
       </div>
     </section>
