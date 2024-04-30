@@ -1,9 +1,9 @@
 import { register } from "../graphql/queries.js";
 import { appendAlert } from "./utils.js";
+import graphqlCall from "../graphql/graphqlCall.js";
 
 const contactForm = document.getElementById("form");
 const responseMessage = document.getElementById("response-form");
-const url = "http://localhost:3000/graphql";
 
 contactForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -18,20 +18,7 @@ contactForm.addEventListener("submit", async (event) => {
     },
   };
 
-  const headers = {
-    "Content-Type": "application/json",
-  };
-
-  const data = {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  };
-
-  const response = await fetch(url, data);
+  const response = await graphqlCall(query, variables);
   if (!response.ok) {
     appendAlert(responseMessage, "Connection failed", "danger");
     throw new Error(response.statusText);
