@@ -23,7 +23,7 @@
   <header>
     <nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top">
       <div class="container">
-        <a class="navbar-brand text-uppercase fw-bold" href="index.html">
+        <a class="navbar-brand text-uppercase fw-bold" href="login.html">
           <img src="img/wikipstudy_small-logo.png" height="50" width="50" alt="WikipStudy logo"
             class="img-fluid navbar-brand" />
           <span class="p-1">Wikip</span>Study
@@ -37,7 +37,7 @@
               <a class="nav-link" href="register.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link btn btn-secondary ms-1 text-light" href="index.html">Login</a>
+              <a class="nav-link btn btn-secondary ms-1 text-light" href="login.html">Login</a>
             </li>
           </ul>
         </div>
@@ -52,7 +52,7 @@
           <div class="col-7 col-md-3 offset-md-3">
             <h1 class="fw-bold"><span class="p-1">Wikip</span>Study</h1>
             <h2 class="fw-light">Learn with Wikipedia</h2>
-            <button type="button" class="btn btn-primary" onclick="document.getElementById('toFocus').focus()"><i
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('user_name').focus()"><i
                 class="bi bi-arrow-return-right"></i> Start
               Learning</button>
           </div>
@@ -68,26 +68,26 @@
         <h3>You need an account to use <span class="fw-bold"><span class="p-1">Wikip</span>Study</span>
         </h3>
 
-        <form>
+        <form id="form" class="mb-3">
           <div class="mb-3">
             <label for="" class="form-label">User name</label>
-            <input type="text" class="form-control" name="" id="toFocus" aria-describedby="" placeholder="John" />
+            <input type="text" class="form-control" name="user_name" id="user_name" aria-describedby=""
+              placeholder="John" />
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Email</label>
-            <input type="email" class="form-control" name="" id="" aria-describedby=""
+            <input type="email" class="form-control" name="email" id="email" aria-describedby=""
               placeholder="email@example.com" />
           </div>
           <div class="mb-3">
             <label for="" class="form-label">Password</label>
-            <input type="password" class="form-control" name="" id="" placeholder="" />
+            <input type="password" class="form-control" name="password" id="password" placeholder="" />
           </div>
 
           <button type="submit" class="btn btn-primary">Register</button>
-          <a class="btn btn-secondary" href="index.html">Login</a>
+          <a class="btn btn-secondary" href="login.html">Login</a>
         </form>
-
-
+        <div id="response-form"></div>
       </div>
     </section>
   </main>
@@ -96,6 +96,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+
+  <script src="js/register.js"></script>
 </body>
 
 </html>
