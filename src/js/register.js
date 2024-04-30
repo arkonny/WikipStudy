@@ -1,29 +1,9 @@
+import { register } from "../graphql/queries.js";
+import { appendAlert } from "./utils.js";
+
 const contactForm = document.getElementById("form");
 const responseMessage = document.getElementById("response-form");
 const url = "http://localhost:3000/graphql";
-
-const register = `mutation Register($user: UserInput!) {
-  register(user: $user) {
-    message
-    user {
-      id
-      user_name
-      email
-    }
-  }
-}`;
-
-const appendAlert = (message, type) => {
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${message}</div>`,
-    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    "</div>",
-  ].join("");
-
-  responseMessage.append(wrapper);
-};
 
 contactForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -53,15 +33,15 @@ contactForm.addEventListener("submit", async (event) => {
 
   const response = await fetch(url, data);
   if (!response.ok) {
-    appendAlert("Connection failed", "danger");
+    appendAlert(responseMessage, "Connection failed", "danger");
     throw new Error(response.statusText);
   }
 
   const dataResponse = await response.json();
   if (dataResponse.errors) {
-    appendAlert(dataResponse.errors[0].message, "danger");
+    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
     return;
   }
 
-  appendAlert("Registration successful", "success");
+  appendAlert(responseMessage, "Registration successful", "success");
 });
