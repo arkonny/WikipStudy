@@ -40,4 +40,12 @@ const quizzesByOwner = `query QuizzesByOwner($owner: ID!) {
   }
 }`;
 
-export { login, register, checkToken, quizzesByOwner };
+const quizResearch = `query QuizResearch($search: String!) {
+  quizResearch(search: $search) {
+    id
+    quiz_name
+    filename
+  }
+}`;
+
+export { login, register, checkToken, quizzesByOwner, quizResearch };
