@@ -13,15 +13,13 @@ const appendAlert = (alertElement, message, type) => {
   alertElement.append(wrapper);
 };
 
-const setCookie = (name, value, days) => {
-  const date = new Date();
-  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-  document.cookie = `${name}=${value};expires=${date.toUTCString()}`;
+const setCookie = (name, value) => {
+  document.cookie = `${name}=${value}`;
 };
 
 const getCookie = (name) => {
   const cookie = document.cookie
-    .split(";")
+    .split("; ")
     .find((row) => row.startsWith(name + "="))
     ?.split("=")[1];
   return cookie ? cookie : "";
@@ -36,7 +34,9 @@ const sessionCheck = async () => {
     return null;
   }
   const response = await graphqlCall(checkToken, {});
-
+  if (!response.ok) {
+    return null;
+  }
   const dataResponse = await response.json();
   if (
     dataResponse.errors ||
@@ -44,10 +44,40 @@ const sessionCheck = async () => {
   ) {
     deleteCookie("token");
     deleteCookie("user_name");
+    deleteCookie("id");
     return null;
   }
-
   return dataResponse.data.checkToken.user;
 };
 
-export { appendAlert, setCookie, getCookie, deleteCookie, sessionCheck };
+const addQuizCard = (quizCard) => {
+  return `
+  <div class="col">
+    <div class="card">
+      <img
+        src="https://via.placeholder.com/300x150"
+        alt="Quiz image"
+        class="card-img-top"
+      />
+      <div class="card-body">
+        <h5 class="card-title">${quizCard.quiz_name}</h5>
+        <a class="btn btn-primary" href="play-quiz.html" title="Open quiz">
+          Start the quiz
+        </a>
+        <a class="btn btn-secondary" href="edit-quiz.html" title="Edit quiz">
+          Edit
+        </a>
+      </div>
+    </div>
+  </div>
+  `;
+};
+
+export {
+  appendAlert,
+  setCookie,
+  getCookie,
+  deleteCookie,
+  sessionCheck,
+  addQuizCard,
+};

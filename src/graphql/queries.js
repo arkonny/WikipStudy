@@ -32,4 +32,12 @@ const checkToken = `query CheckToken {
   }
 }`;
 
-export { login, register, checkToken };
+const quizzesByOwner = `query QuizzesByOwner($owner: ID!) {
+  quizzesByOwner(owner: $owner) {
+    id
+    quiz_name
+    filename
+  }
+}`;
+
+export { login, register, checkToken, quizzesByOwner };
