@@ -30,7 +30,7 @@ const deleteCookie = (name) => {
 };
 
 const sessionCheck = async () => {
-  if (!getCookie("token")) {
+  if (!getCookie("token") || !getCookie("user_name") || !getCookie("id")) {
     return null;
   }
   const response = await graphqlCall(checkToken, {});
