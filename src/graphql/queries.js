@@ -48,4 +48,90 @@ const quizResearch = `query QuizResearch($search: String!) {
   }
 }`;
 
-export { login, register, checkToken, quizzesByOwner, quizResearch };
+const createQuiz = `mutation CreateQuiz($input: QuizInput!) {
+  createQuiz(input: $input) {
+    id
+    quiz_name
+    questions {
+      id
+      question
+      options
+      answers
+      type
+    }
+    owner {
+      id
+      user_name
+    }
+    filename
+  }
+}`;
+
+const generateQuiz = `mutation GenerateQuiz($search: String!) {
+  generateQuiz(search: $search) {
+    id
+    quiz_name
+    questions {
+      id
+      question
+      type
+      options
+      answers
+    }
+    owner {
+      id
+      user_name
+    }
+    filename
+  }
+}`;
+
+const updateQuiz = `mutation UpdateQuiz($id: ID!, $input: QuizInput!) {
+  updateQuiz(id: $id, input: $input) {
+    id
+    quiz_name
+    questions {
+      id
+      question
+      type
+      options
+      answers
+    }
+    owner {
+      id
+      user_name
+    }
+    filename
+  }
+}`;
+
+const quizById = `query QuizById($id: ID!) {
+  quizById(id: $id) {
+    id
+    quiz_name
+    questions {
+      id
+      question
+      type
+      options
+      answers
+    }
+    owner {
+      id
+      user_name
+    }
+    filename
+  }
+}`;
+
+export {
+  login,
+  register,
+  checkToken,
+  quizzesByOwner,
+  quizResearch,
+  createQuiz,
+  generateQuiz,
+  updateQuiz,
+  quizById,
+};
