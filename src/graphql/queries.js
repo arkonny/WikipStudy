@@ -21,4 +21,15 @@ const register = `mutation Register($user: UserInput!) {
   }
 }`;
 
-export { login, register };
+const checkToken = `query CheckToken {
+  checkToken {
+    message
+    user {
+      id
+      user_name
+      email
+    }
+  }
+}`;
+
+export { login, register, checkToken };

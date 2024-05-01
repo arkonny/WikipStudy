@@ -1,15 +1,20 @@
 import { register } from "../graphql/queries.js";
-import { appendAlert } from "./utils.js";
+import { appendAlert, sessionCheck } from "./utils.js";
 import graphqlCall from "../graphql/graphqlCall.js";
 
-const contactForm = document.getElementById("form");
+sessionCheck().then((user) => {
+  if (user) {
+    window.location.href = "index.html";
+  }
+});
+
+const registerForm = document.getElementById("form");
 const responseMessage = document.getElementById("response-form");
 
-contactForm.addEventListener("submit", async (event) => {
+registerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const formData = new FormData(contactForm);
-  const query = register;
+  const formData = new FormData(registerForm);
   const variables = {
     user: {
       user_name: formData.get("user_name"),
@@ -18,7 +23,7 @@ contactForm.addEventListener("submit", async (event) => {
     },
   };
 
-  const response = await graphqlCall(query, variables);
+  const response = await graphqlCall(register, variables);
   if (!response.ok) {
     appendAlert(responseMessage, "Connection failed", "danger");
     throw new Error(response.statusText);
@@ -27,7 +32,7 @@ contactForm.addEventListener("submit", async (event) => {
   const dataResponse = await response.json();
   if (dataResponse.errors) {
     appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    return;
+    throw new Error(dataResponse.errors[0].message);
   }
 
   appendAlert(responseMessage, "Registration successful", "success");

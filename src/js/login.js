@@ -1,15 +1,20 @@
 import { login } from "../graphql/queries.js";
-import { appendAlert } from "./utils.js";
+import { appendAlert, sessionCheck, setCookie } from "./utils.js";
 import graphqlCall from "../graphql/graphqlCall.js";
 
-const form = document.getElementById("form");
+sessionCheck().then((user) => {
+  if (user) {
+    window.location.href = "index.html";
+  }
+});
+
+const loginForm = document.getElementById("form");
 const responseMessage = document.getElementById("response-form");
 
-form.addEventListener("submit", async (event) => {
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const formData = new FormData(form);
-  const query = login;
+  const formData = new FormData(loginForm);
   const variables = {
     credentials: {
       username: formData.get("username"),
@@ -17,8 +22,7 @@ form.addEventListener("submit", async (event) => {
     },
   };
 
-  const response = await graphqlCall(query, variables);
-
+  const response = await graphqlCall(login, variables);
   if (!response.ok) {
     appendAlert(responseMessage, "Connection failed", "danger");
     throw new Error(response.statusText);
@@ -31,6 +35,7 @@ form.addEventListener("submit", async (event) => {
   }
 
   appendAlert(responseMessage, "Login successful", "success");
-  document.cookie = `token=${dataResponse.data.login.token}`;
+  setCookie("token", dataResponse.data.login.token, 1);
+  setCookie("user_name", dataResponse.data.login.user.user_name, 1);
   window.location.href = "index.html";
 });

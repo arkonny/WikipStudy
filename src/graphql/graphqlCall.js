@@ -10,7 +10,7 @@ const graphqlCall = async (query, variables) => {
   } else {
     headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookie()}`,
+      Authorization: `Bearer ${getCookie("token")}`,
     };
   }
 
@@ -23,7 +23,11 @@ const graphqlCall = async (query, variables) => {
     }),
   };
 
-  return await fetch(url, data);
+  const response = await fetch(url, data);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response;
 };
 
 export default graphqlCall;

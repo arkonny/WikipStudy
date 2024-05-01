@@ -1,3 +1,6 @@
+import graphqlCall from "../graphql/graphqlCall.js";
+import { checkToken } from "../graphql/queries.js";
+
 const appendAlert = (alertElement, message, type) => {
   const wrapper = document.createElement("div");
   wrapper.innerHTML = [
@@ -10,47 +13,41 @@ const appendAlert = (alertElement, message, type) => {
   alertElement.append(wrapper);
 };
 
-const getCookie = () => {
-  const cname = "token=";
-  const cookie = document.cookie.split(";");
-  for (let i = 0; i < cookie.length; i++) {
-    let c = cookie[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(cname) == 0) {
-      return c.substring(cname.length, c.length);
-    }
-  }
-  return "";
+const setCookie = (name, value, days) => {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()}`;
+};
+
+const getCookie = (name) => {
+  const cookie = document.cookie
+    .split(";")
+    .find((row) => row.startsWith(name + "="))
+    ?.split("=")[1];
+  return cookie ? cookie : "";
+};
+
+const deleteCookie = (name) => {
+  document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC`;
 };
 
 const sessionCheck = async () => {
-  const query = session;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${getCookie()}`,
-  };
-
-  const data = {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      query,
-    }),
-  };
-
-  const response = await fetch(url, data);
-  if (!response.ok) {
-    throw new Error(response.statusText);
+  if (!getCookie("token")) {
+    return null;
   }
+  const response = await graphqlCall(checkToken, {});
 
   const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    throw new Error(dataResponse.errors[0].message);
+  if (
+    dataResponse.errors ||
+    dataResponse.data.checkToken.message !== "Token is valid"
+  ) {
+    deleteCookie("token");
+    deleteCookie("user_name");
+    return null;
   }
 
-  return dataResponse.data.session;
+  return dataResponse.data.checkToken.user;
 };
 
-export { getCookie, sessionCheck, appendAlert };
+export { appendAlert, setCookie, getCookie, deleteCookie, sessionCheck };
