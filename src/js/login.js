@@ -35,7 +35,8 @@ loginForm.addEventListener("submit", async (event) => {
   }
 
   appendAlert(responseMessage, "Login successful", "success");
-  setCookie("token", dataResponse.data.login.token, 1);
-  setCookie("user_name", dataResponse.data.login.user.user_name, 1);
+  setCookie("token", dataResponse.data.login.token);
+  setCookie("user_name", dataResponse.data.login.user.user_name);
+  setCookie("id", dataResponse.data.login.user.id);
   window.location.href = "index.html";
 });
