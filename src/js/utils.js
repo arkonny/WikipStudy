@@ -61,10 +61,10 @@ const addQuizCard = (quizCard) => {
       />
       <div class="card-body">
         <h5 class="card-title">${quizCard.quiz_name}</h5>
-        <a class="btn btn-primary" href="play-quiz.html" title="Open quiz">
+        <a class="btn btn-primary" href="play-quiz.html?id=${quizCard.id}" title="Open quiz">
           Start the quiz
         </a>
-        <a class="btn btn-secondary" href="edit-quiz.html" title="Edit quiz">
+        <a class="btn btn-secondary" href="edit-quiz.html?id=${quizCard.id}" title="Edit quiz">
           Edit
         </a>
       </div>
