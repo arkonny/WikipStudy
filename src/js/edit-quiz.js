@@ -17,6 +17,20 @@ const saveQuizButton = document.getElementById("save-quiz");
 const generateQuizButton = document.getElementById("generate-quiz");
 const deleteQuizButton = document.getElementById("delete-quiz");
 
+const addEditableQuestion = (question, answer) => {
+  console.log("question :", question);
+  questionsList.innerHTML += `
+      <div class="row mb-3">
+          <div class="col">
+              <textarea class="form-control question">${question}</textarea>
+          </div>
+          <div class="col">
+              <input type="text" class="form-control answer" value=${answer}>
+          </div>
+      </div>`;
+  console.log("answer :", answer);
+};
+
 const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
   saveQuizButton.innerHTML = '<i class="bi bi-floppy"></i>' + " Update";
@@ -37,15 +51,7 @@ if (URLparams.has("id")) {
   const quiz = dataResponse.data.quizById;
   quizNameInput.value = quiz.quiz_name;
   quiz.questions.forEach((question) => {
-    questionsList.innerHTML += `
-      <div class="row mb-3">
-          <div class="col">
-              <textarea class="form-control question">${question.question}</textarea>
-          </div>
-          <div class="col">
-              <textarea class="form-control answer">${question.answers[0]}</textarea>
-          </div>
-      </div>`;
+    addEditableQuestion(question.question, question.answers[0]);
   });
 
   deleteQuizButton.classList.remove("disabled");
@@ -75,15 +81,7 @@ saveQuizButton.addEventListener("click", async () => {
 });
 
 addQuestionButton.addEventListener("click", () => {
-  questionsList.innerHTML += `
-    <div class="row mb-3">
-        <div class="col">
-            <textarea class="form-control question"></textarea>
-        </div>
-        <div class="col">
-            <textarea class="form-control answer"></textarea>
-        </div>
-    </div>`;
+  addEditableQuestion("", "");
 });
 
 removeQuestionButton.addEventListener("click", () => {
