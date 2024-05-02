@@ -151,6 +151,28 @@ const answerQuiz = `mutation AnswerQuiz($input: AnswerInput!) {
   }
 }`;
 
+const favoriteAdd = `mutation FavoritesAdd($quizId: ID!) {
+  favoritesAdd(quizId: $quizId) {
+    owner
+    items {
+      id
+      quiz_name
+      filename
+    }
+  }
+}`;
+
+const favoriteRemove = `mutation FavoritesRemove($quizId: ID!) {
+  favoritesRemove(quizId: $quizId) {
+    owner
+    items {
+      id
+      quiz_name
+      filename
+    }
+  }
+}`;
+
 export {
   login,
   register,
@@ -163,4 +185,6 @@ export {
   deleteQuiz,
   quizById,
   answerQuiz,
+  favoriteAdd,
+  favoriteRemove,
 };

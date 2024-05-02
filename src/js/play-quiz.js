@@ -1,12 +1,19 @@
-import graphqlCall from "../graphql/graphqlCall.js";
-import { answerQuiz, quizById } from "../graphql/queries.js";
-import { appendAlert } from "./utils.js";
+import {
+  answerQuiz,
+  favoriteAdd,
+  favoriteRemove,
+  quizById,
+} from "../graphql/queries.js";
+import { appendAlert, graphqlCallResponse } from "./utils.js";
 
 const responseMessage = document.getElementById("response-message");
 const quizNameInput = document.getElementById("quiz-name");
 const questionsList = document.getElementById("questions-list");
 const responseQuizButton = document.getElementById("response-quiz");
+const favoriteButton = document.getElementById("favorite-quiz");
+const favoriteIcon = favoriteButton.querySelector("i");
 let numberOfQuestions = 0;
+let favorite = false;
 
 const addPlayableQuestion = (question) => {
   questionsList.innerHTML += `
@@ -26,27 +33,52 @@ if (!URLparams.has("id")) {
 }
 
 const displayQuizInfo = async () => {
-  const response = await graphqlCall(quizById, {
+  const response = await graphqlCallResponse(quizById, {
     id: URLparams.get("id"),
+    responseMessage,
   });
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-
-  const quiz = dataResponse.data.quizById;
+  const quiz = response.data.quizById;
   quizNameInput.textContent = quiz.quiz_name;
   quiz.questions.forEach((question) => {
     addPlayableQuestion(question.question);
   });
   numberOfQuestions = quiz.questions.length;
+  if (quiz.favorite) {
+    favorite = true;
+    favoriteIcon.classList.remove("bi-star");
+    favoriteIcon.classList.add("bi-star-fill");
+  }
 };
+
+favoriteButton.addEventListener("click", async () => {
+  if (favorite) {
+    try {
+      await graphqlCallResponse(favoriteRemove, {
+        quizId: URLparams.get("id"),
+        responseMessage,
+      });
+    } catch (error) {
+      return;
+    }
+    appendAlert(responseMessage, "Quiz removed from favorites", "success");
+    favoriteIcon.classList.remove("bi-star-fill");
+    favoriteIcon.classList.add("bi-star");
+    favorite = false;
+  } else {
+    try {
+      await graphqlCallResponse(favoriteAdd, {
+        quizId: URLparams.get("id"),
+        responseMessage,
+      });
+    } catch (error) {
+      return;
+    }
+    appendAlert(responseMessage, "Quiz added to favorites", "success");
+    favoriteIcon.classList.remove("bi-star");
+    favoriteIcon.classList.add("bi-star-fill");
+    favorite = true;
+  }
+});
 
 const getPageQuizAnswers = () => {
   const quizId = URLparams.get("id");
@@ -62,17 +94,13 @@ responseQuizButton.addEventListener("click", async () => {
   const variables = {
     input: getPageQuizAnswers(),
   };
-  const response = await graphqlCall(answerQuiz, variables);
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-  const score = dataResponse.data.answerQuiz.score;
+  const response = await graphqlCallResponse(
+    answerQuiz,
+    variables,
+    responseMessage
+  );
+
+  const score = response.data.answerQuiz.score;
   const resultText = document.getElementById("result-text");
   const resultBarDiv = document.getElementById("result-bar-div");
   const resultBar = document.getElementById("result-bar");

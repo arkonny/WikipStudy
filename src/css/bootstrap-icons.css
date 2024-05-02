@@ -18,6 +18,14 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.bi-star::before {
+    content: "\F588";
+}
+
+.bi-star-fill::before {
+    content: "\F586";
+}
+
 .bi-house::before {
     content: "\f425";
 }
