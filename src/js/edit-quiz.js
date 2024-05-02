@@ -25,7 +25,7 @@ const addEditableQuestion = (question, answer) => {
               <textarea class="form-control question">${question}</textarea>
           </div>
           <div class="col">
-              <input type="text" class="form-control answer" value=${answer}>
+              <input type="text" class="form-control answer" value="${answer}">
           </div>
       </div>`;
   console.log("answer :", answer);
@@ -168,14 +168,6 @@ generateQuizButton.addEventListener("click", async () => {
     quizNameInput.value = quiz.quiz_name;
   }
   quiz.questions.forEach((question) => {
-    questionsList.innerHTML += `
-      <div class="row mb-3">
-          <div class="col">
-              <textarea class="form-control question">${question.question}</textarea>
-          </div>
-          <div class="col">
-              <textarea class="form-control answer">${question.answers[0]}</textarea>
-          </div>
-      </div>`;
+    addEditableQuestion(question.question, question.answers[0]);
   });
 });
