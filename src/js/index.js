@@ -1,5 +1,5 @@
 import { quizzesByOwner } from "../graphql/queries.js";
-import { addQuizCard, appendAlert, getCookie } from "./utils.js";
+import { addQuizCardEdit, appendAlert, getCookie } from "./utils.js";
 import graphqlCall from "../graphql/graphqlCall.js";
 
 const responseMessage = document.getElementById("response-message");
@@ -24,5 +24,5 @@ const quizzesList = dataResponse.data.quizzesByOwner;
 
 quizzesList.forEach((quiz) => {
   quizzesListElement.innerHTML =
-    addQuizCard(quiz) + quizzesListElement.innerHTML;
+    addQuizCardEdit(quiz) + quizzesListElement.innerHTML;
 });

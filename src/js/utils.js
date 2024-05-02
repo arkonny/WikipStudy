@@ -50,7 +50,7 @@ const sessionCheck = async () => {
   return dataResponse.data.checkToken.user;
 };
 
-const addQuizCard = (quizCard) => {
+const addQuizCardEdit = (quizCard) => {
   return `
   <div class="col">
     <div class="card">
@@ -73,6 +73,26 @@ const addQuizCard = (quizCard) => {
   `;
 };
 
+const addQuizCard = (quizCard) => {
+  return `
+  <div class="col">
+    <div class="card">
+      <img
+        src="https://via.placeholder.com/300x150"
+        alt="Quiz image"
+        class="card-img-top"
+      />
+      <div class="card-body">
+        <h5 class="card-title">${quizCard.quiz_name}</h5>
+        <a class="btn btn-primary" href="play-quiz.html?id=${quizCard.id}" title="Open quiz">
+          Start the quiz
+        </a>
+      </div>
+    </div>
+  </div>
+  `;
+};
+
 export {
   appendAlert,
   setCookie,
@@ -80,4 +100,5 @@ export {
   deleteCookie,
   sessionCheck,
   addQuizCard,
+  addQuizCardEdit,
 };
