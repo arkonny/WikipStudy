@@ -16,9 +16,9 @@ const removeQuestionButton = document.getElementById("remove-question");
 const saveQuizButton = document.getElementById("save-quiz");
 const generateQuizButton = document.getElementById("generate-quiz");
 const deleteQuizButton = document.getElementById("delete-quiz");
+const confirmDeleteButton = document.getElementById("confirm-delete");
 
 const addEditableQuestion = (question, answer) => {
-  console.log("question :", question);
   questionsList.innerHTML += `
       <div class="row mb-3">
           <div class="col">
@@ -28,7 +28,6 @@ const addEditableQuestion = (question, answer) => {
               <input type="text" class="form-control answer" value="${answer}">
           </div>
       </div>`;
-  console.log("answer :", answer);
 };
 
 const URLparams = new URLSearchParams(window.location.search);
@@ -55,7 +54,7 @@ if (URLparams.has("id")) {
   });
 
   deleteQuizButton.classList.remove("disabled");
-  deleteQuizButton.addEventListener("click", async () => {
+  confirmDeleteButton.addEventListener("click", async () => {
     const response = await graphqlCall(deleteQuiz, { id: quiz.id });
     if (!response.ok) {
       appendAlert(responseMessage, "Connection failed", "danger");
