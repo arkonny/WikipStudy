@@ -1,6 +1,7 @@
 import graphqlCall from "../graphql/graphqlCall.js";
 import {
   createQuiz,
+  deleteQuiz,
   generateQuiz,
   quizById,
   updateQuiz,
@@ -14,6 +15,7 @@ const addQuestionButton = document.getElementById("add-question");
 const removeQuestionButton = document.getElementById("remove-question");
 const saveQuizButton = document.getElementById("save-quiz");
 const generateQuizButton = document.getElementById("generate-quiz");
+const deleteQuizButton = document.getElementById("delete-quiz");
 
 const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
@@ -44,6 +46,22 @@ if (URLparams.has("id")) {
               <textarea class="form-control answer">${question.answers[0]}</textarea>
           </div>
       </div>`;
+  });
+
+  deleteQuizButton.classList.remove("disabled");
+  deleteQuizButton.addEventListener("click", async () => {
+    const response = await graphqlCall(deleteQuiz, { id: quiz.id });
+    if (!response.ok) {
+      appendAlert(responseMessage, "Connection failed", "danger");
+      throw new Error(response.statusText);
+    }
+    const dataResponse = await response.json();
+    if (dataResponse.errors) {
+      appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
+      throw new Error(dataResponse.errors[0].message);
+    }
+    appendAlert(responseMessage, "Quiz deleted successfully", "success");
+    window.location.href = "index.html";
   });
 }
 
@@ -107,7 +125,7 @@ const saveQuiz = async () => {
   }
   appendAlert(responseMessage, "Quiz saved successfully", "success");
   URLparams.set("id", dataResponse.data.createQuiz.id);
-  window.history.replaceState(null, "", "?" + URLparams.toString());
+  window.location.href = `edit-quiz.html?${URLparams.toString()}`;
 };
 
 const updateQuizFunction = async (quizId) => {

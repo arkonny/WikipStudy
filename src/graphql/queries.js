@@ -105,6 +105,25 @@ const updateQuiz = `mutation UpdateQuiz($id: ID!, $input: QuizInput!) {
   }
 }`;
 
+const deleteQuiz = `mutation DeleteQuiz($id: ID!) {
+  deleteQuiz(id: $id) {
+    id
+    quiz_name
+    questions {
+      id
+      question
+      type
+      options
+      answers
+    }
+    owner {
+      id
+      user_name
+    }
+    filename
+  }
+}`;
+
 const quizById = `query QuizById($id: ID!) {
   quizById(id: $id) {
     id
@@ -133,5 +152,6 @@ export {
   createQuiz,
   generateQuiz,
   updateQuiz,
+  deleteQuiz,
   quizById,
 };
