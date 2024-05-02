@@ -5,6 +5,9 @@ import graphqlCall from "../graphql/graphqlCall.js";
 const responseMessage = document.getElementById("response-message");
 const quizzesListElement = document.getElementById("quizzes-list");
 
+const titleName = document.getElementById("title-name");
+const name = getCookie("user_name");
+titleName.textContent += ", " + name;
 const response = await graphqlCall(quizzesByOwner, { owner: getCookie("id") });
 if (!response.ok) {
   appendAlert(responseMessage, "Connection failed", "danger");
