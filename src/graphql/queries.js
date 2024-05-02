@@ -143,6 +143,14 @@ const quizById = `query QuizById($id: ID!) {
   }
 }`;
 
+const answerQuiz = `mutation AnswerQuiz($input: AnswerInput!) {
+  answerQuiz(input: $input) {
+    quiz
+    owner
+    score
+  }
+}`;
+
 export {
   login,
   register,
@@ -154,4 +162,5 @@ export {
   updateQuiz,
   deleteQuiz,
   quizById,
+  answerQuiz,
 };

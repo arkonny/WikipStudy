@@ -55,7 +55,7 @@
     <section id="play-quiz" class="bg-light py-5">
       <div class="container">
         <div class="container mb-5">
-          <h1>Quiz title</h1>
+          <h1 id="quiz-name">Quiz title</h1>
         </div>
         <div class="row mb-3">
           <div class="col">
@@ -65,34 +65,31 @@
             <label>Answer</label>
           </div>
         </div>
-        <form>
-          <div class="row mb-3">
-            <div class="col">
-              <h5 class="">What is the capital of France?</h5>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" />
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col">
-              <h5 class="">What is the capital of Germany?</h5>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" />
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col">
-              <h5 class="">What is the capital of Italy?</h5>
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" />
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Get result</button>
+        <form id="questions-list">
         </form>
+        <button id="response-quiz" type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#answer-quiz-modal">Get result</button>
+        <div class="modal fade" id="answer-quiz-modal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h5>Results</h5>
+                <div id="results-div">
+                  <h2 id="result-text" class="text-center fw-bold"></h2>
+                  <div id="result-bar-div" class="progress" style="height: 60px">
+                    <div id="result-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                      aria-valuemax="100">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="response-message" class="mt-2"></div>
       </div>
     </section>
   </main>
