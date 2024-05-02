@@ -173,6 +173,17 @@ const favoriteRemove = `mutation FavoritesRemove($quizId: ID!) {
   }
 }`;
 
+const favoritesGet = `query FavoritesGet {
+  favoritesGet {
+    owner
+    items {
+      id
+      quiz_name
+      filename
+    }
+  }
+}`;
+
 export {
   login,
   register,
@@ -187,4 +198,5 @@ export {
   answerQuiz,
   favoriteAdd,
   favoriteRemove,
+  favoritesGet,
 };
