@@ -1,6 +1,10 @@
 import { login } from "../graphql/queries.js";
-import { appendAlert, sessionCheck, setCookie } from "./utils.js";
-import graphqlCall from "../graphql/graphqlCall.js";
+import {
+  appendAlert,
+  graphqlCallResponse,
+  sessionCheck,
+  setCookie,
+} from "./utils.js";
 
 sessionCheck().then((user) => {
   if (user) {
@@ -22,21 +26,10 @@ loginForm.addEventListener("submit", async (event) => {
     },
   };
 
-  const response = await graphqlCall(login, variables);
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-
+  const response = await graphqlCallResponse(login, variables, responseMessage);
   appendAlert(responseMessage, "Login successful", "success");
-  setCookie("token", dataResponse.data.login.token);
-  setCookie("user_name", dataResponse.data.login.user.user_name);
-  setCookie("id", dataResponse.data.login.user.id);
+  setCookie("token", response.data.login.token);
+  setCookie("user_name", response.data.login.user.user_name);
+  setCookie("id", response.data.login.user.id);
   window.location.href = "index.html";
 });

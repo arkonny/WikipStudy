@@ -1,4 +1,3 @@
-import graphqlCall from "../graphql/graphqlCall.js";
 import {
   createQuiz,
   deleteQuiz,
@@ -6,7 +5,7 @@ import {
   quizById,
   updateQuiz,
 } from "../graphql/queries.js";
-import { appendAlert } from "./utils.js";
+import { appendAlert, graphqlCallResponse } from "./utils.js";
 
 const responseMessage = document.getElementById("response-message");
 const quizNameInput = document.getElementById("quiz-name");
@@ -33,21 +32,11 @@ const addEditableQuestion = (question, answer) => {
 const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
   saveQuizButton.innerHTML = '<i class="bi bi-floppy"></i>' + " Update";
-  const response = await graphqlCall(quizById, {
+  const response = await graphqlCallResponse(quizById, {
     id: URLparams.get("id"),
+    responseMessage,
   });
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-
-  const quiz = dataResponse.data.quizById;
+  const quiz = response.data.quizById;
   quizNameInput.value = quiz.quiz_name;
   quiz.questions.forEach((question) => {
     addEditableQuestion(question.question, question.answers[0]);
@@ -55,16 +44,7 @@ if (URLparams.has("id")) {
 
   deleteQuizButton.classList.remove("disabled");
   confirmDeleteButton.addEventListener("click", async () => {
-    const response = await graphqlCall(deleteQuiz, { id: quiz.id });
-    if (!response.ok) {
-      appendAlert(responseMessage, "Connection failed", "danger");
-      throw new Error(response.statusText);
-    }
-    const dataResponse = await response.json();
-    if (dataResponse.errors) {
-      appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-      throw new Error(dataResponse.errors[0].message);
-    }
+    await graphqlCallResponse(deleteQuiz, { id: quiz.id }, responseMessage);
     appendAlert(responseMessage, "Quiz deleted successfully", "success");
     window.location.href = "index.html";
   });
@@ -109,19 +89,13 @@ const saveQuiz = async () => {
   const variables = {
     input: getPageQuizInfo(),
   };
-  const response = await graphqlCall(createQuiz, variables);
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
+  const response = await graphqlCallResponse(
+    createQuiz,
+    variables,
+    responseMessage
+  );
   appendAlert(responseMessage, "Quiz saved successfully", "success");
-  URLparams.set("id", dataResponse.data.createQuiz.id);
+  URLparams.set("id", response.data.createQuiz.id);
   window.location.href = `edit-quiz.html?${URLparams.toString()}`;
 };
 
@@ -131,18 +105,12 @@ const updateQuizFunction = async (quizId) => {
     input: getPageQuizInfo(),
   };
 
-  const response = await graphqlCall(updateQuiz, variables);
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-  if (dataResponse.data.updateQuiz.id) {
+  const response = await graphqlCallResponse(
+    updateQuiz,
+    variables,
+    responseMessage
+  );
+  if (response.data.updateQuiz.id) {
     appendAlert(responseMessage, "Quiz saved successfully", "success");
   }
 };
@@ -150,19 +118,12 @@ const updateQuizFunction = async (quizId) => {
 generateQuizButton.addEventListener("click", async () => {
   const wikipediaPage = document.getElementById("wikipedia-page").value;
 
-  const response = await graphqlCall(generateQuiz, { search: wikipediaPage });
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-
-  const quiz = dataResponse.data.generateQuiz;
+  const response = await graphqlCallResponse(
+    generateQuiz,
+    { search: wikipediaPage },
+    responseMessage
+  );
+  const quiz = response.data.generateQuiz;
   if (quizNameInput.value === "") {
     quizNameInput.value = quiz.quiz_name;
   }

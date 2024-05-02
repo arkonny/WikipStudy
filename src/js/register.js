@@ -1,6 +1,5 @@
 import { register } from "../graphql/queries.js";
-import { appendAlert, sessionCheck } from "./utils.js";
-import graphqlCall from "../graphql/graphqlCall.js";
+import { appendAlert, graphqlCallResponse, sessionCheck } from "./utils.js";
 
 sessionCheck().then((user) => {
   if (user) {
@@ -23,17 +22,7 @@ registerForm.addEventListener("submit", async (event) => {
     },
   };
 
-  const response = await graphqlCall(register, variables);
-  if (!response.ok) {
-    appendAlert(responseMessage, "Connection failed", "danger");
-    throw new Error(response.statusText);
-  }
-
-  const dataResponse = await response.json();
-  if (dataResponse.errors) {
-    appendAlert(responseMessage, dataResponse.errors[0].message, "danger");
-    throw new Error(dataResponse.errors[0].message);
-  }
-
+  await graphqlCallResponse(register, variables, responseMessage);
   appendAlert(responseMessage, "Registration successful", "success");
+  window.location.href = "login.html";
 });
