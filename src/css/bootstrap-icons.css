@@ -26,6 +26,14 @@
     content: "\f4d7";
 }
 
+.bi-trash::before {
+    content: "\f5de";
+}
+
+.bi-floppy::before {
+    content: "\f7d8";
+}
+
 .bi-search::before {
     content: "\f52a";
 }

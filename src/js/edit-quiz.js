@@ -19,7 +19,7 @@ const deleteQuizButton = document.getElementById("delete-quiz");
 
 const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
-  saveQuizButton.textContent = "Update Quiz";
+  saveQuizButton.innerHTML = '<i class="bi bi-floppy"></i>' + " Update";
   const response = await graphqlCall(quizById, {
     id: URLparams.get("id"),
   });
