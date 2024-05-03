@@ -56,13 +56,44 @@
   <main>
     <section id="quizzes" class="py-5 mt-5">
       <div class="container">
-        <h2 id="title-name" class="fw-bold">Your quizzes</h2>
+        <div class="d-flex gap-3 mb-3">
+          <h2 id="title-name" class="fw-bold">Your quizzes</h2>
+          <button class="btn btn-outline-primary" id="edit-profile" data-bs-toggle="modal"
+            data-bs-target="#edit-profile-modal">Edit profile</button>
+          <div class="modal fade" id="edit-profile-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <h5>Edit your profile</h5>
+                  <form id="update-form" class="mb-3">
+                    <div class="mb-3">
+                      <label for="" class="form-label">User name</label>
+                      <input type="text" class="form-control" name="user_name" id="user_name" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="" class="form-label">Email</label>
+                      <input type="email" class="form-control" name="email" id="email" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="" class="form-label">Password</label>
+                      <input type="password" class="form-control" name="password" id="password" />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="edit-profile-confirm" type="submit" class="btn btn-primary">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="response-message"></div>
         <div id="quizzes-list" class="row row-cols-1 row-cols-md-4 g-4">
           <div class="col align-self-end p-3">
             <a class="btn btn-primary" href="edit-quiz.html">
               + New quiz</a>
           </div>
-          <div id="response-message"></div>
         </div>
       </div>
     </section>

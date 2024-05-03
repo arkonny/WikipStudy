@@ -21,6 +21,24 @@ const register = `mutation Register($user: UserInput!) {
   }
 }`;
 
+const updateUser = `mutation UpdateUser($user: UserModify!) {
+  updateUser(user: $user) {
+    message
+    user {
+      id
+      user_name
+      email
+    }
+  }
+}`;
+
+const userById = `query UserById($userByIdId: ID!) {
+  userById(id: $userByIdId) {
+    id
+    user_name
+  }
+}`;
+
 const checkToken = `query CheckToken {
   checkToken {
     message
@@ -195,6 +213,8 @@ const reportAdd = `mutation ReportAdd($target: ID!, $message: String) {
 export {
   login,
   register,
+  updateUser,
+  userById,
   checkToken,
   quizzesByOwner,
   quizResearch,

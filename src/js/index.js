@@ -1,8 +1,15 @@
-import { quizzesByOwner } from "../graphql/queries.js";
-import { addQuizCardEdit, getCookie, graphqlCallResponse } from "./utils.js";
+import { checkToken, quizzesByOwner, updateUser } from "../graphql/queries.js";
+import {
+  addQuizCardEdit,
+  appendAlert,
+  getCookie,
+  graphqlCallResponse,
+} from "./utils.js";
 
 const responseMessage = document.getElementById("response-message");
 const quizzesListElement = document.getElementById("quizzes-list");
+const editUserButton = document.getElementById("edit-profile-confirm");
+const updateForm = document.getElementById("update-form");
 
 const titleName = document.getElementById("title-name");
 const name = getCookie("user_name");
@@ -12,10 +19,37 @@ const response = await graphqlCallResponse(
   { owner: getCookie("id") },
   responseMessage
 );
-
 const quizzesList = response.data.quizzesByOwner;
-
 quizzesList.forEach((quiz) => {
   quizzesListElement.innerHTML =
     addQuizCardEdit(quiz) + quizzesListElement.innerHTML;
+});
+
+const userResponse = await graphqlCallResponse(checkToken, {}, responseMessage);
+updateForm.user_name.value = userResponse.data.checkToken.user.user_name;
+updateForm.email.value = userResponse.data.checkToken.user.email;
+
+editUserButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(updateForm);
+  let user = {};
+  const user_name = formData.get("user_name");
+  if (user_name !== "") {
+    user.user_name = user_name;
+  }
+  const email = formData.get("email");
+  if (email !== "") {
+    user.email = email;
+  }
+  const password = formData.get("password");
+  if (password !== "") {
+    user.password;
+  }
+  const variables = {
+    user,
+  };
+
+  await graphqlCallResponse(updateUser, variables, responseMessage);
+  appendAlert(responseMessage, "Profile updated", "success");
 });
