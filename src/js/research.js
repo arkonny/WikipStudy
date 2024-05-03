@@ -13,6 +13,7 @@ researchForm.addEventListener("submit", async (event) => {
   });
   const quizzesList = response.data.quizResearch;
 
+  quizzesListElement.innerHTML = "";
   quizzesList.forEach((quiz) => {
     quizzesListElement.innerHTML =
       addQuizCard(quiz) + quizzesListElement.innerHTML;
