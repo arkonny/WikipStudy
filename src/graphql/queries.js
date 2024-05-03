@@ -184,6 +184,14 @@ const favoritesGet = `query FavoritesGet {
   }
 }`;
 
+const reportAdd = `mutation ReportAdd($target: ID!, $message: String) {
+  reportAdd(target: $target, message: $message) {
+    target
+    source
+    message
+  }
+}`;
+
 export {
   login,
   register,
@@ -199,4 +207,5 @@ export {
   favoriteAdd,
   favoriteRemove,
   favoritesGet,
+  reportAdd,
 };

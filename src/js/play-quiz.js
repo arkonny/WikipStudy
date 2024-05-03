@@ -3,6 +3,7 @@ import {
   favoriteAdd,
   favoriteRemove,
   quizById,
+  reportAdd,
 } from "../graphql/queries.js";
 import { appendAlert, graphqlCallResponse } from "./utils.js";
 
@@ -12,6 +13,7 @@ const questionsList = document.getElementById("questions-list");
 const responseQuizButton = document.getElementById("response-quiz");
 const favoriteButton = document.getElementById("favorite-quiz");
 const favoriteIcon = favoriteButton.querySelector("i");
+const reportButton = document.getElementById("report-confirm-button");
 let numberOfQuestions = 0;
 let favorite = false;
 
@@ -120,6 +122,17 @@ responseQuizButton.addEventListener("click", async () => {
       resultBar.classList.add("bg-warning");
     }
   }
+});
+
+reportButton.addEventListener("click", async () => {
+  const reportText = document.getElementById("message-report");
+  const variables = {
+    target: URLparams.get("id"),
+    message: reportText.value,
+  };
+  await graphqlCallResponse(reportAdd, variables, responseMessage);
+  appendAlert(responseMessage, "Report sent", "success");
+  reportText.value = "";
 });
 
 displayQuizInfo();
