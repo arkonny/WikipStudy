@@ -50,6 +50,17 @@ const checkToken = `query CheckToken {
   }
 }`;
 
+const deleteUser = `mutation DeleteUser {
+  deleteUser {
+    message
+    user {
+      id
+      user_name
+      email
+    }
+  }
+}`;
+
 const quizzesByOwner = `query QuizzesByOwner($owner: ID!) {
   quizzesByOwner(owner: $owner) {
     id
@@ -215,6 +226,7 @@ export {
   register,
   updateUser,
   userById,
+  deleteUser,
   checkToken,
   quizzesByOwner,
   quizResearch,

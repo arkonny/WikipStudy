@@ -83,6 +83,23 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <button id="edit-profile-confirm" type="submit" class="btn btn-primary">Update</button>
+                  <button id="delete-profile" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#warn-delete-modal"><i class="bi bi-trash"></i> Delete
+                    account</button>
+                  <div class="modal fade" id="warn-delete-modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <h5 class="text-center">Are you sure you want to delete your account ?</h5>
+                          <p class="text-center">All your quizzes, favorites and results will be deleted as well</p>
+                          <div class="d-flex justify-content-center gap-3">
+                            <button id="delete-profile-confirm" type="button" class="btn btn-danger">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

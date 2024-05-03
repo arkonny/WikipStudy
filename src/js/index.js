@@ -1,7 +1,13 @@
-import { checkToken, quizzesByOwner, updateUser } from "../graphql/queries.js";
+import {
+  checkToken,
+  deleteUser,
+  quizzesByOwner,
+  updateUser,
+} from "../graphql/queries.js";
 import {
   addQuizCardEdit,
   appendAlert,
+  deleteCookie,
   getCookie,
   graphqlCallResponse,
 } from "./utils.js";
@@ -10,6 +16,7 @@ const responseMessage = document.getElementById("response-message");
 const quizzesListElement = document.getElementById("quizzes-list");
 const editUserButton = document.getElementById("edit-profile-confirm");
 const updateForm = document.getElementById("update-form");
+const deleteUserButton = document.getElementById("delete-profile-confirm");
 
 const titleName = document.getElementById("title-name");
 const name = getCookie("user_name");
@@ -52,4 +59,16 @@ editUserButton.addEventListener("click", async (event) => {
 
   await graphqlCallResponse(updateUser, variables, responseMessage);
   appendAlert(responseMessage, "Profile updated", "success");
+});
+
+deleteUserButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  await graphqlCallResponse(deleteUser, {}, responseMessage);
+  appendAlert(responseMessage, "Profile deleted", "success");
+  deleteCookie("token");
+  deleteCookie("user_name");
+  deleteCookie("id");
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 2000);
 });
