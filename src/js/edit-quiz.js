@@ -5,7 +5,7 @@ import {
   quizById,
   updateQuiz,
 } from "../graphql/queries.js";
-import { appendAlert, graphqlCallResponse } from "./utils.js";
+import { appendAlert, graphqlCallResponse, uploadImage } from "./utils.js";
 
 const responseMessage = document.getElementById("response-message");
 const quizNameInput = document.getElementById("quiz-name");
@@ -16,6 +16,7 @@ const saveQuizButton = document.getElementById("save-quiz");
 const generateQuizButton = document.getElementById("generate-quiz");
 const deleteQuizButton = document.getElementById("delete-quiz");
 const confirmDeleteButton = document.getElementById("confirm-delete");
+const imageInput = document.getElementById("quiz-image");
 
 const addEditableQuestion = (question, answer) => {
   questionsList.innerHTML += `
@@ -72,7 +73,8 @@ removeQuestionButton.addEventListener("click", () => {
   }
 });
 
-const getPageQuizInfo = () => {
+const getPageQuizInfo = async () => {
+  const filename = await uploadImage(imageInput);
   const quiz_name = quizNameInput.value;
   const questions = Array.from(
     document.querySelectorAll("#questions-list > div")
@@ -82,12 +84,15 @@ const getPageQuizInfo = () => {
       answers: question.querySelector(".answer").value,
     };
   });
+  if (filename) {
+    return { quiz_name, questions, filename };
+  }
   return { quiz_name, questions };
 };
 
 const saveQuiz = async () => {
   const variables = {
-    input: getPageQuizInfo(),
+    input: await getPageQuizInfo(),
   };
   const response = await graphqlCallResponse(
     createQuiz,
@@ -102,7 +107,7 @@ const saveQuiz = async () => {
 const updateQuizFunction = async (quizId) => {
   const variables = {
     id: quizId,
-    input: getPageQuizInfo(),
+    input: await getPageQuizInfo(),
   };
 
   const response = await graphqlCallResponse(
@@ -131,3 +136,5 @@ generateQuizButton.addEventListener("click", async () => {
     addEditableQuestion(question.question, question.answers[0]);
   });
 });
+
+imageInput.addEventListener("change", async () => {});

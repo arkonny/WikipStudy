@@ -107,6 +107,27 @@ const graphqlCallResponse = async (query, variables, responseElement) => {
   return dataResponse;
 };
 
+const uploadURL = "http://localhost:3002/api/v1";
+
+const uploadImage = async (imageInput) => {
+  if (!imageInput.files[0]) return;
+  const image = imageInput.files[0];
+  const formData = new FormData();
+  formData.append("file", image);
+  const response = await fetch(`${uploadURL}/upload`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${getCookie("token")}`,
+    },
+    body: formData,
+  });
+  const imageUploadData = await response.json();
+  if (!imageUploadData.data) {
+    throw new Error("Image upload failed");
+  }
+  return imageUploadData.data.filename.toString();
+};
+
 export {
   appendAlert,
   setCookie,
@@ -116,4 +137,5 @@ export {
   addQuizCard,
   addQuizCardEdit,
   graphqlCallResponse,
+  uploadImage,
 };
