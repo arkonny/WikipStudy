@@ -54,17 +54,28 @@
   </header>
 
   <main>
-    <div class="mt-5"><br></div>
-    <section id="play-quiz" class="bg-light py-5">
+    <section id="title" class="py-5 mt-5">
       <div class="container">
-        <div class="row justify-content-between">
-          <div class="col-10 d-flex gap-3 mb-5">
-            <button id="favorite-quiz" type="button" class="btn btn-outline-warning h-auto">
-              <i class="bi bi-star fs-4"></i>
-            </button>
-            <h1 id="quiz-name">Quiz title</h1>
+        <div class="row">
+          <div class="col-5 col-md-5 offset-md-1">
+            <div class="row">
+              <div class="col-auto">
+                <button id="favorite-quiz" type="button" class="btn btn-outline-warning h-auto">
+                  <i class="bi bi-star fs-4"></i>
+                </button>
+              </div>
+              <div class="col">
+                <h1 id="quiz-name" class="fw-bold">Quiz title</h1>
+              </div>
+            </div>
+            <h2 id="quiz-owner" class="fw-light">Learn with Wikipedia</h2>
           </div>
-          <div class="col">
+
+          <div class="col-4 col-md-4">
+            <img id="quiz-image" src="img/wikipstudy.png" height="150" width="150" class="img-fluid" />
+          </div>
+
+          <div class="col-auto">
             <button id="report-button" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
               data-bs-target="#report-quiz-modal">Report</button>
             <div class="modal fade" id="report-quiz-modal" tabindex="-1" aria-hidden="true">
@@ -83,6 +94,10 @@
             </div>
           </div>
         </div>
+    </section>
+
+    <section id="play-quiz" class="bg-light py-5">
+      <div class="container">
         <div id="response-message" class="mt-2"></div>
         <div class="row mb-3">
           <div class="col">

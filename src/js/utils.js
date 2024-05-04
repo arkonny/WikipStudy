@@ -55,16 +55,21 @@ const addQuizCardEdit = (quizCard) => {
   <div class="col">
     <div class="card">
       <img
-        src="https://via.placeholder.com/300x150"
+        src="${getImageUrl(quizCard.filename)}"
         alt="Quiz image"
+        style="height: 150px; object-fit: contain;"
         class="card-img-top"
       />
       <div class="card-body">
         <h5 class="card-title">${quizCard.quiz_name}</h5>
-        <a class="btn btn-primary" href="play-quiz.html?id=${quizCard.id}" title="Open quiz">
+        <a class="btn btn-primary" href="play-quiz.html?id=${
+          quizCard.id
+        }" title="Open quiz">
           Start the quiz
         </a>
-        <a class="btn btn-secondary" href="edit-quiz.html?id=${quizCard.id}" title="Edit quiz">
+        <a class="btn btn-secondary" href="edit-quiz.html?id=${
+          quizCard.id
+        }" title="Edit quiz">
           Edit
         </a>
       </div>
@@ -78,13 +83,16 @@ const addQuizCard = (quizCard) => {
   <div class="col">
     <div class="card">
       <img
-        src="https://via.placeholder.com/300x150"
+        src="${getImageUrl(quizCard.filename)}"
         alt="Quiz image"
+        style="height: 150px; object-fit: contain;"
         class="card-img-top"
       />
       <div class="card-body">
         <h5 class="card-title">${quizCard.quiz_name}</h5>
-        <a class="btn btn-primary" href="play-quiz.html?id=${quizCard.id}" title="Open quiz">
+        <a class="btn btn-primary" href="play-quiz.html?id=${
+          quizCard.id
+        }" title="Open quiz">
           Start the quiz
         </a>
       </div>
@@ -107,14 +115,14 @@ const graphqlCallResponse = async (query, variables, responseElement) => {
   return dataResponse;
 };
 
-const uploadURL = "http://localhost:3002/api/v1";
+const uploadURL = "http://localhost:3002";
 
 const uploadImage = async (imageInput) => {
   if (!imageInput.files[0]) return;
   const image = imageInput.files[0];
   const formData = new FormData();
   formData.append("file", image);
-  const response = await fetch(`${uploadURL}/upload`, {
+  const response = await fetch(`${uploadURL}/api/v1/upload`, {
     method: "POST",
     headers: {
       authorization: `Bearer ${getCookie("token")}`,
@@ -128,6 +136,11 @@ const uploadImage = async (imageInput) => {
   return imageUploadData.data.filename.toString();
 };
 
+const getImageUrl = (image) => {
+  if (!image) return "img/wikipstudy.png";
+  return `${uploadURL}/uploads/${image}`;
+};
+
 export {
   appendAlert,
   setCookie,
@@ -138,4 +151,5 @@ export {
   addQuizCardEdit,
   graphqlCallResponse,
   uploadImage,
+  getImageUrl,
 };
