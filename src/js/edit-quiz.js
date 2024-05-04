@@ -57,6 +57,10 @@ if (URLparams.has("id")) {
   quiz.questions.forEach((question) => {
     addEditableQuestion(question.question, question.answers[0]);
   });
+  questionsList.querySelectorAll("textarea").forEach((textarea) => {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + 1 + "px";
+  });
 
   deleteQuizButton.classList.remove("disabled");
   confirmDeleteButton.addEventListener("click", async () => {
