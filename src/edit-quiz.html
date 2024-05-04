@@ -55,7 +55,7 @@
   <main>
     <div class="mt-5"><br></div>
     <section id="edit-quiz" class="bg-light py-5 pt-5 mt-5">
-      <div class="container mb-5">
+      <div class="container">
         <div class="row">
           <div class="col">
             <h5>Quiz title</h5>
@@ -63,14 +63,8 @@
           </div>
           <div class="col">
             <h5>Quiz image</h5>
-            <div class="row">
-              <div class="col-auto">
-                <input type="file" class="form-control" name="quiz-image" id="quiz-image" accept="image/*" />
-              </div>
-              <div class="col-auto">
-                <button id="upload-image" type="button" class="btn btn-primary">Upload</button>
-              </div>
-            </div>
+            <input type="file" class="form-control" name="quiz-image" id="quiz-image" accept="image/*" />
+            <p id="image-url" class="text-muted"></p>
           </div>
         </div>
       </div>

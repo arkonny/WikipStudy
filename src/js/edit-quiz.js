@@ -5,7 +5,12 @@ import {
   quizById,
   updateQuiz,
 } from "../graphql/queries.js";
-import { appendAlert, graphqlCallResponse, uploadImage } from "./utils.js";
+import {
+  appendAlert,
+  getImageUrl,
+  graphqlCallResponse,
+  uploadImage,
+} from "./utils.js";
 
 const responseMessage = document.getElementById("response-message");
 const quizNameInput = document.getElementById("quiz-name");
@@ -20,6 +25,7 @@ const generateQuizButton = document.getElementById("generate-quiz");
 const deleteQuizButton = document.getElementById("delete-quiz");
 const confirmDeleteButton = document.getElementById("confirm-delete");
 const imageInput = document.getElementById("quiz-image");
+const imageUrl = document.getElementById("image-url");
 
 const addEditableQuestion = (question, answer) => {
   questionsList.innerHTML += `
@@ -43,6 +49,7 @@ if (URLparams.has("id")) {
   });
   const quiz = response.data.quizById;
   quizNameInput.value = quiz.quiz_name;
+  imageUrl.textContent = "Image : " + quiz.filename;
   quiz.questions.forEach((question) => {
     addEditableQuestion(question.question, question.answers[0]);
   });
@@ -133,12 +140,5 @@ generateQuizButtonConfirm.addEventListener("click", async () => {
     responseMessage
   );
   const quiz = response.data.generateQuiz;
-  if (quizNameInput.value === "") {
-    quizNameInput.value = quiz.quiz_name;
-  }
-  quiz.questions.forEach((question) => {
-    addEditableQuestion(question.question, question.answers[0]);
-  });
+  window.location.href = `edit-quiz.html?id=${quiz.id}`;
 });
-
-imageInput.addEventListener("change", async () => {});
