@@ -49,7 +49,11 @@ if (URLparams.has("id")) {
   });
   const quiz = response.data.quizById;
   quizNameInput.value = quiz.quiz_name;
-  imageUrl.textContent = "Image : " + quiz.filename;
+  if (quiz.filename) {
+    imageUrl.textContent = "Image : " + quiz.filename;
+  } else {
+    imageUrl.textContent = "No image saved yet";
+  }
   quiz.questions.forEach((question) => {
     addEditableQuestion(question.question, question.answers[0]);
   });
