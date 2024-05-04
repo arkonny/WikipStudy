@@ -13,6 +13,9 @@ const questionsList = document.getElementById("questions-list");
 const addQuestionButton = document.getElementById("add-question");
 const removeQuestionButton = document.getElementById("remove-question");
 const saveQuizButton = document.getElementById("save-quiz");
+const generateQuizButtonConfirm = document.getElementById(
+  "generate-quiz-confirm"
+);
 const generateQuizButton = document.getElementById("generate-quiz");
 const deleteQuizButton = document.getElementById("delete-quiz");
 const confirmDeleteButton = document.getElementById("confirm-delete");
@@ -32,6 +35,7 @@ const addEditableQuestion = (question, answer) => {
 
 const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
+  generateQuizButton.classList.add("d-none");
   saveQuizButton.innerHTML = '<i class="bi bi-floppy"></i>' + " Update";
   const response = await graphqlCallResponse(quizById, {
     id: URLparams.get("id"),
@@ -120,7 +124,7 @@ const updateQuizFunction = async (quizId) => {
   }
 };
 
-generateQuizButton.addEventListener("click", async () => {
+generateQuizButtonConfirm.addEventListener("click", async () => {
   const wikipediaPage = document.getElementById("wikipedia-page").value;
 
   const response = await graphqlCallResponse(
