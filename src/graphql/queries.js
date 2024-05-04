@@ -169,6 +169,7 @@ const quizById = `query QuizById($id: ID!) {
       user_name
     }
     filename
+    favorite
   }
 }`;
 
