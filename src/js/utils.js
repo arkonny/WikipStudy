@@ -105,12 +105,10 @@ const graphqlCallResponse = async (query, variables, responseElement) => {
   try {
     const response = await graphqlCall(query, variables);
     if (!response.ok) {
-      appendAlert(responseElement, "Connection failed", "danger");
       throw new Error(response.statusText);
     }
     const dataResponse = await response.json();
     if (dataResponse.errors) {
-      appendAlert(responseElement, dataResponse.errors[0].message, "danger");
       throw new Error(dataResponse.errors[0].message);
     }
     return dataResponse;
