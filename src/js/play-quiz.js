@@ -49,6 +49,9 @@ const displayQuizInfo = async () => {
   quizNameInput.textContent = quiz.quiz_name;
   quizOwnerInput.textContent = "A quiz by : " + quiz.owner.user_name;
   quizImage.src = getImageUrl(quiz.filename);
+  document.getElementById(
+    "quiz-owner-button"
+  ).href = `profile.html?id=${quiz.owner.id}`;
 
   quiz.questions.forEach((question) => {
     addPlayableQuestion(question.question);
