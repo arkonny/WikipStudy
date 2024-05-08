@@ -43,10 +43,13 @@ const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
   generateQuizButton.classList.add("d-none");
   saveQuizButton.innerHTML = '<i class="bi bi-floppy"></i>' + " Update";
-  const response = await graphqlCallResponse(quizById, {
-    id: URLparams.get("id"),
-    responseMessage,
-  });
+  const response = await graphqlCallResponse(
+    quizById,
+    {
+      id: URLparams.get("id"),
+    },
+    responseMessage
+  );
   const quiz = response.data.quizById;
   quizNameInput.value = quiz.quiz_name;
   if (quiz.filename) {

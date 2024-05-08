@@ -1,5 +1,5 @@
 import { getCookie } from "../js/utils.js";
-const url = "http://localhost:3000/graphql";
+const url = "https://wikipstudy.azurewebsites.net/graphql";
 
 const graphqlCall = async (query, variables) => {
   let headers;
