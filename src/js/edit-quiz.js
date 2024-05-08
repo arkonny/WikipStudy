@@ -26,6 +26,7 @@ const deleteQuizButton = document.getElementById("delete-quiz");
 const confirmDeleteButton = document.getElementById("confirm-delete");
 const imageInput = document.getElementById("quiz-image");
 const imageUrl = document.getElementById("image-url");
+const playButton = document.getElementById("play-quiz");
 
 const addEditableQuestion = (question, answer) => {
   questionsList.innerHTML += `
@@ -43,6 +44,8 @@ const URLparams = new URLSearchParams(window.location.search);
 if (URLparams.has("id")) {
   generateQuizButton.classList.add("d-none");
   saveQuizButton.innerHTML = '<i class="bi bi-floppy"></i>' + " Update";
+  playButton.classList.remove("disabled");
+  playButton.href = `play-quiz.html?id=${URLparams.get("id")}`;
   const response = await graphqlCallResponse(
     quizById,
     {
