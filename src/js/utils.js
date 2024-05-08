@@ -104,10 +104,11 @@ const addQuizCard = (quizCard) => {
 const graphqlCallResponse = async (query, variables, responseElement) => {
   try {
     const response = await graphqlCall(query, variables);
-    if (!response.ok) {
+
+    const dataResponse = await response.json();
+    if (!response.ok && !dataResponse.errors) {
       throw new Error(response.statusText);
     }
-    const dataResponse = await response.json();
     if (dataResponse.errors) {
       throw new Error(dataResponse.errors[0].message);
     }

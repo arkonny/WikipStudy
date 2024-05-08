@@ -27,6 +27,9 @@ loginForm.addEventListener("submit", async (event) => {
   };
 
   const response = await graphqlCallResponse(login, variables, responseMessage);
+  if (response.errors) {
+    return;
+  }
   appendAlert(responseMessage, "Login successful", "success");
   setCookie("token", response.data.login.token);
   setCookie("user_name", response.data.login.user.user_name);
