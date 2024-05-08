@@ -115,7 +115,7 @@ const graphqlCallResponse = async (query, variables, responseElement) => {
     return dataResponse;
   } catch (error) {
     appendAlert(responseElement, error.message, "danger");
-    return { ok: false };
+    return;
   }
 };
 

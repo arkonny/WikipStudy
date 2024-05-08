@@ -27,7 +27,7 @@ loginForm.addEventListener("submit", async (event) => {
   };
 
   const response = await graphqlCallResponse(login, variables, responseMessage);
-  if (!response.ok) {
+  if (!response) {
     return;
   }
   appendAlert(responseMessage, "Login successful", "success");
