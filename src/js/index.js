@@ -49,10 +49,6 @@ editUserButton.addEventListener("click", async (event) => {
   if (email !== "") {
     user.email = email;
   }
-  const password = formData.get("password");
-  if (password !== "") {
-    user.password;
-  }
   const variables = {
     user,
   };
