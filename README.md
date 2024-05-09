@@ -5,45 +5,100 @@ Wikipedia is the largest source of knowledge openly accessible on the internet.
 What if you could learn easily from it ?  
 That's the mission of WikipStudy !  
 
-(this repository is the main one for informations, but it only hosts the front-end.  [here](https://github.com/arkonny/WikipStudy-Backend) is the link to the backend)
+## Overview
+WikipStudy is a web application designed to facilitate learning from Wikipedia. By using the vast amount of knowledge available on Wikipedia, WikipStudy aims to turn passive reading into active learning.
 
-[Link to the BackLog](https://tree.taiga.io/project/arkonny-wikipstudy/backlog)
+#### Note
+This repository is only for the front-end part of the application. Here are the other repositories :
+- [WikipStudy-Backend](https://github.com/arkonny/WikipStudy-Backend)
+- [WikipStudy-Auth](https://github.com/arkonny/WikipStudy-Auth)
+- [WikipStudy-Upload](https://github.com/arkonny/WikipStudy-Upload)
 
-![WikipStudy Logo](/src/img/wikipstudy_logo.png)  
+## Application Idea and Target Audience
+### What the Project Does
+WikipStudy allows users to create their quizzes, with a question and a fill-in answer.
+At the creation of a quiz, the user can choose to generate one from a simple search that will find the correct wikipedia page and extract its first 10 sentences. From there, each sentence will be analysed and a key word will be chosen to be replaced, making a question out of it.  
+Additionnally, they can search among all of the quizzes created by the other users to try them out.
+And to more easily access quizzes they like, they can add them to their favorites.
 
+### Target Audience
+WikipStudy is designed for individuals of all ages and educational backgrounds who are searching for a way to learn from Wikipedia.
 
-## Objectives :
-- Learn anything (available on Wikipedia, of course)
-- Generate lesson from a page automatically 
-- Learn with fun, or at least learning shouldn't feel like a chore
-- Follow courses, or a kind of roadmap of what you want to learn
-- Community driven, like Wikipedia (to create courses and help to correct lessons)
-- Possibility to use it as a game
-- Multiplayer
-- Accessible (respect of WAI from W3C)
-- Be quick and easy to launch
-- Both fun and useful
+- Students: From high school or university, preparing an exam or conducting research, WikipStudy offers a convenient way to create revision quizzes, and cover various topics from Wikipedia articles.
+- Teachers: They can make use of WikipStudy as a learning tool to create custom quizzes, encouraging a better student participation.
+- Lifelong and casual learners: You can use WikipStudy to discover interesting facts from the wide range of topics available on Wikipedia.
 
- ### Usable for different purposes :
-- fast learning
-- in-depth learning and verification of what you actually understood and remember
-- learning in group
-- having fun
+## Application Functionalities
+WikipStudy offers the following key functionalities:
+- Play: Users can play quizzes by filling the correct answer for each question, and get a score afterwards
+- Create: Users can create their own quizzes with a simple interface, and even add an image to their quiz to make it more unique !
+- Generate: The special feature of WikipStudy ! Users can choose to generate a quiz from a wikipedia page out of a simple search.
+- Search: Users can search for quizzes from other users, and see all of the quizzes created by a user.
+- Bookmarking: Users can add to their favorites quizzes for future play and easy access.
+- Privacy matters ! Your email adress is not communicated to anyone except you, of course.
 
-## Quizz Sessions
-### Principle :
-A user can launch a quizz session, giving him multiple questions on a pre-selected subject.  
-The questions can be of various nature : multiple-choice, fill-in, date an event, locate a place on a map (from a photo or the name of the place), write some code, solve a math problem...  
-Of course, there can be different levels, either a general level for all the questions, or a personnalized one for specific type of questions where you are bored.  
-A subject is (for now) a page, but this could be given a larger scale of thematics, being a group of pages determined either by the user himself (a private thematic) or more commonly by the community (a public thematic) (eg. The history of Mathematics, a thematic that could regroup pages of famous mathematicians and their discoveries)  
+## Testing the Application
+You can directly go to the website : [WikipStudy](https://users.metropolia.fi/~lucienr/wikipstudy/)  
+Or to the Apollo panel : [Apollo Server](https://wikipstudy.azurewebsites.net/graphql)
 
-### Personnalisation :
-Presets are available to launch a quick game : general culture (easy, normal or hard, to play a quick game), [select category] (difficulty level, for specific themes), and many others more, created by the community for example. (famous people, cities, famous events, etc)  
-There can be auto-generated presets for particular pages, when you launch it from a course or a category  
-However, if you have a specific idea, you can use the parameters : select a range of time or a range of geographic space, types of questions (dates, geography, images, math, code, fill-in, multiple-choice etc.), themes, categories or pages you want, and randomization possibilities for all of this (random type of questions, random theme etc.)  
+There, create an account, and login.
+You arrive on your personal page, where you will be able to see your own quizzes and create new ones. You can also edit your username and email adress from there.  
 
-## Focus group :
-This app has multiple use case, so almost anyone could be interested in using it, including :  
-Someone excited to learn about a specific subject available on Wikipedia  
-Someone or a group of friends who wants to play a knowledge game  
-Focusing on the "fun" potential of the app, to emphasize on users interactions and developping a game is always more engaging than a boring app
+### Finding and playing a quiz
+On the "Research" page, by clicking on "Search" with no search words, you will access all of the quizzes created by everyone.  
+On the "Play" page of a quiz, you can fill in what you think are the answers, and click on "Get result" to see your score. No need to try to cheat, you won't get the answers unless you are the owner of the quiz.  
+You can look at the page of the owner of the quiz and see what other quizzes he created.  
+If you like a quiz, click on the yellow star on the page of the quiz (the "Play" page) to add it to your favorites.
+You can then access to your favorites by clicking on the link of the same name in the navigation bar.
+
+### Creating a quiz
+The "Edit" page has two states : either saved or unsaved.  
+By clicking on "New quiz", you are in the unsaved state. Their, you can either generate a quiz or create your own by clicking on the green button "Add", to add a question.  
+Once a quiz is saved or generated, it is playable and everyone can see it, but you cannot generate from wikipedia over a saved quiz, as it automatically creates a new one.  
+To generate a quiz, click on the "Generate" button, enter the name of a wikipedia page (you can actually enter a search, it just needs to find the page in a single search, so you need to be precise. For example, "VIM" won't work, but "VIM (editor)" will find the correct page)  
+You can add and modify the picture associated to the quiz at any time.  
+
+Creating a lot of quizzes to test the generating tool is okay, as long as you delete the unused quizzes afterwards.
+When deleting a quiz, it disappears from everyone's favorite, the saved results of the quiz are deleted, and the image associated to it is deleted as well.
+
+### Note :
+Currently, you cannot see your past results from the UI, but their is a graphql API call to do so. You can only see your results, by providing the id of a quiz you have played.
+ 
+## Deploy your own instance of WikipStudy
+To deploy WikipStudy locally and start using the application, follow these steps :
+1. Clone the different repositories : (you should do that in a dedicated folder, as all of the repositories are important)
+   ```
+   git clone https://github.com/arkonny/WikipStudy
+   git clone https://github.com/arkonny/WikipStudy-Backend
+   git clone https://github.com/arkonny/WIkipStudy-Auth
+   git clone https://github.com/arkonny/WikipStudy-Upload
+   ```
+2. Install the dependencies on each repository (except the "Wikipstudy" one, which is the front-end)
+   ```
+   cd WikipStudy-Backend
+   npm i
+   cd ../WikipStudy-Auth
+   npm i
+   cd ../WikipStudy-Upload
+   npm i
+   ```
+3. Fill in the .env file of each repo with the correct informations; You will need a Mongo database, and choose a JWT secret and a password for the admin account.
+(As of right now, the admin account is only useful for the tests, and doesn't have any specific privileges)
+4. Start each application
+   ```
+   npm run dev
+   ```
+5. From VSCode for example, launch a live server of the WikipStudy repo (the front-end). From there, everything should work.
+6. Additionaly, you can access the Apollo server interface at [http://localhost:3000/graphql](http://localhost:3000/graphql).
+
+## Contributing
+Contributions to WikipStudy are welcome! For now, the project is a proof-of-concept, and the front-end is not the priority.
+What will matter the most next is :
+
+- Questions variety : offer different type of questions, even more complex than what a simple quiz could offer, with interactive tasks and exercices and different media supports : audio, image, maybe even videos, and even more.
+- Questions generation : being able, from a simple text input, to generate at least True or False questions, qualitative Fill-in questions, and Multiple choice questions. Enough so that someone could, from a written chapter of any kind of course, generate with no user interaction, a qualitative quiz to help do a quick revision of its course.
+
+As of the interface, it will probably be a stand-alone software, or a simple discord bot could potentially be created for the quiz generation part.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
