@@ -119,7 +119,7 @@ const graphqlCallResponse = async (query, variables, responseElement) => {
   }
 };
 
-const uploadURL = "https://wikipstudy-upload.azurewebsites.net";
+const uploadURL = "http://localhost:3002";
 
 const uploadImage = async (imageInput) => {
   if (!imageInput.files[0]) return;
