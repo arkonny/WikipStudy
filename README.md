@@ -82,7 +82,7 @@ To deploy WikipStudy locally and start using the application, follow these steps
    cd ../WikipStudy-Upload
    npm i
    ```
-3. Fill in the .env file of each repo with the correct informations; You will need a Mongo database, and choose a JWT secret and a password for the admin account.
+3. Fill in the .env file of each repo with the correct informations; You will need a Mongo database, and choose a JWT secret (the same everywhere) and a password for the admin account.
 (As of right now, the admin account is only useful for the tests, and doesn't have any specific privileges)
 4. Start each application
    ```
@@ -90,6 +90,11 @@ To deploy WikipStudy locally and start using the application, follow these steps
    ```
 5. From VSCode for example, launch a live server of the WikipStudy repo (the front-end). From there, everything should work.
 6. Additionaly, you can access the Apollo server interface at [http://localhost:3000/graphql](http://localhost:3000/graphql).
+
+### Note :
+The links to the servers in the front-end code are hard-coded there :
+Graphql server : `src/graphql/graphqlCall.js`, line 2
+Upload server : `src/js/utils.js`, line 122
 
 ## Contributing
 Contributions to WikipStudy are welcome! For now, the project is a proof-of-concept, and the front-end is not the priority.
