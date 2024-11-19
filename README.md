@@ -38,9 +38,11 @@ WikipStudy offers the following key functionalities:
 - Privacy matters ! Your email adress is not communicated to anyone except you, of course.
 
 ## Function of the Application
-Here are some images 
 ![Login page](README_resources/login.png)
+Login page of the website
+
 ![Edit page](README_resources/edit.png)
+Page to create a quiz
 
 ### Finding and playing a quiz
 On the "Research" page, by clicking on "Search" with no search words, you will access all of the quizzes created by everyone.  
