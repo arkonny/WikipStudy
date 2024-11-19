@@ -37,12 +37,10 @@ WikipStudy offers the following key functionalities:
 - Bookmarking: Users can add to their favorites quizzes for future play and easy access.
 - Privacy matters ! Your email adress is not communicated to anyone except you, of course.
 
-## Testing the Application
-You can directly go to the website : [WikipStudy](https://users.metropolia.fi/~lucienr/wikipstudy/)  
-Or to the Apollo panel : [Apollo Server](https://wikipstudy.azurewebsites.net/graphql)
-
-There, create an account, and login.
-You arrive on your personal page, where you will be able to see your own quizzes and create new ones. You can also edit your username and email adress from there.  
+## Function of the Application
+Here are some images 
+![Login page](README_resources/login.png)
+![Edit page](README_resources/edit.png)
 
 ### Finding and playing a quiz
 On the "Research" page, by clicking on "Search" with no search words, you will access all of the quizzes created by everyone.  
